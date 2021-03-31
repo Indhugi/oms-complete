@@ -19,10 +19,12 @@ public class OrderService { // Spring Beans//ServiceLayer
 	RestTemplate getTaxesTemplate;
 	public String createOrder(Order order) {
 		//call getTaxes
-		Float tax=getTaxesTemplate.getForObject("http://localhost:8080/getTaxes?price={price}", Float.class,order.getPrice());
+		Float tax=getTaxesTemplate.getForObject("http://localhost:8081/getTaxes?price={price}", Float.class,order.getPrice());
 		System.out.println(tax);
 		order.setTax(tax);
 		Order savedOrder=orderRepository.save(order);
+//		if (order!=null)
+//			throw new RuntimeException();
 		return savedOrder.getId();
 		//return "Order Created";
 	}
